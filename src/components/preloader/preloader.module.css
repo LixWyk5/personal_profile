@@ -1,0 +1,40 @@
+.introduction {
+  height: 100dvh;
+  width: 100dvw;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-inline: 60px;
+  padding-bottom: 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: var(--background);
+  pointer-events: none;
+}
+
+.introduction svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 300px);
+  pointer-events: none;
+}
+
+.introduction path {
+  fill: var(--background);
+}
+
+.introduction p {
+  display: flex;
+  color: var(--foreground);
+  font-size: 72px;
+  font-weight: 500;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  pointer-events: none;
+}

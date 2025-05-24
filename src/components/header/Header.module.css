@@ -1,0 +1,56 @@
+.header {
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+
+.bar {
+  padding: 0 calc(var(--padding) * 1.5);
+  height: 100%;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: hsl(var(--background));
+  z-index: -1;
+}
+
+.burger {
+  width: 20px;
+  position: relative;
+  margin-left: 15px;
+}
+
+.burger::after,
+.burger::before {
+  content: "";
+  height: 1px;
+  width: 100%;
+  background-color: hsl(var(--foreground));
+  position: absolute;
+  left: 0;
+  transition: all 0.3s;
+}
+
+.burger::after {
+  top: -4px;
+}
+
+.burger::before {
+  top: 4px;
+}
+
+.burgerActive::after {
+  top: 0px;
+  transform: rotate(45deg);
+}
+
+.burgerActive::before {
+  top: 0px;
+  transform: rotate(-45deg);
+}
