@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/personal_profile/static/css/main.15558554.css",
+    "main.js": "/personal_profile/static/js/main.54bcad2a.js",
+    "static/media/haze-removal.png": "/personal_profile/static/media/haze-removal.0c766975c3d92b05e9d2.png",
+    "static/media/hazy_image_roofs.jpg": "/personal_profile/static/media/hazy_image_roofs.8b53b61277ed2854af92.jpg",
+    "static/media/hazy_image_ny.jpg": "/personal_profile/static/media/hazy_image_ny.88e0ea59c320ed62fc33.jpg",
+    "static/media/management_details.png": "/personal_profile/static/media/management_details.eec8ebb9943ce83b7f29.png",
+    "static/media/clinicaltrial_e-hospital.png": "/personal_profile/static/media/clinicaltrial_e-hospital.cce555b69ba65413caa8.png",
+    "static/media/management.png": "/personal_profile/static/media/management.14c171f5836fa6839ead.png",
+    "static/media/dehazed_image_roofs.jpg": "/personal_profile/static/media/dehazed_image_roofs.84ffb29a3b6c30f9f38b.jpg",
+    "static/media/dehazed_image_ny.jpg": "/personal_profile/static/media/dehazed_image_ny.4536adcba953908fcd9d.jpg",
+    "static/media/message.png": "/personal_profile/static/media/message.5c8b5444de29cf6c45ab.png",
+    "static/media/notifications.png": "/personal_profile/static/media/notifications.c9aa10802754e76336b2.png",
+    "static/media/dehazed_image_house.jpg": "/personal_profile/static/media/dehazed_image_house.feea8d9583eb170767af.jpg",
+    "static/media/hazy_image_house.jpg": "/personal_profile/static/media/hazy_image_house.e2a5dfc939157f6a4543.jpg",
+    "static/media/logo.Elex.ico": "/personal_profile/static/media/logo.Elex.7c89f7804077b3f56289.ico",
+    "static/media/logo.ChinaUnicom.ico": "/personal_profile/static/media/logo.ChinaUnicom.b660fd2e35901d02cda1.ico",
+    "index.html": "/personal_profile/index.html",
+    "main.15558554.css.map": "/personal_profile/static/css/main.15558554.css.map",
+    "main.54bcad2a.js.map": "/personal_profile/static/js/main.54bcad2a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.15558554.css",
+    "static/js/main.54bcad2a.js"
+  ]
+}
