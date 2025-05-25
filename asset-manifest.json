@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/personal_profile/static/css/main.15558554.css",
-    "main.js": "/personal_profile/static/js/main.54bcad2a.js",
+    "main.css": "/personal_profile/static/css/main.a167b5d3.css",
+    "main.js": "/personal_profile/static/js/main.9e87d2b7.js",
     "static/media/haze-removal.png": "/personal_profile/static/media/haze-removal.0c766975c3d92b05e9d2.png",
     "static/media/hazy_image_roofs.jpg": "/personal_profile/static/media/hazy_image_roofs.8b53b61277ed2854af92.jpg",
     "static/media/hazy_image_ny.jpg": "/personal_profile/static/media/hazy_image_ny.88e0ea59c320ed62fc33.jpg",
@@ -17,11 +17,11 @@
     "static/media/logo.Elex.ico": "/personal_profile/static/media/logo.Elex.7c89f7804077b3f56289.ico",
     "static/media/logo.ChinaUnicom.ico": "/personal_profile/static/media/logo.ChinaUnicom.b660fd2e35901d02cda1.ico",
     "index.html": "/personal_profile/index.html",
-    "main.15558554.css.map": "/personal_profile/static/css/main.15558554.css.map",
-    "main.54bcad2a.js.map": "/personal_profile/static/js/main.54bcad2a.js.map"
+    "main.a167b5d3.css.map": "/personal_profile/static/css/main.a167b5d3.css.map",
+    "main.9e87d2b7.js.map": "/personal_profile/static/js/main.9e87d2b7.js.map"
   },
   "entrypoints": [
-    "static/css/main.15558554.css",
-    "static/js/main.54bcad2a.js"
+    "static/css/main.a167b5d3.css",
+    "static/js/main.9e87d2b7.js"
   ]
 }
