@@ -5,13 +5,17 @@ const PreloaderContext = createContext({
   isLoading: true,
   loadingPercent: 0,
   bypassLoading: () => {},
+  resumeLoaded: false,
+  setResumeLoaded: () => {},
 });
 
 export function PreloaderProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [loadingPercent, setLoadingPercent] = useState(0);
+  const [resumeLoaded, setResumeLoaded] = useState(false);
   const loadingTween = useRef();
   const loadingPercentRef = useRef({ value: 0 });
+  const imagesLoadedRef = useRef(false);
 
   const bypassLoading = () => {
     loadingTween.current?.progress(0.99).kill();
@@ -21,6 +25,25 @@ export function PreloaderProvider({ children }) {
       window.scrollTo(0, 0);
     }, 1200);
   };
+
+  // 完成加载流程
+  const finishLoading = () => {
+    // 先显示100%
+    setLoadingPercent(100);
+    
+    // 然后等待1200ms后完成过渡（与原始代码保持一致）
+    setTimeout(() => {
+      setIsLoading(false);
+      window.scrollTo(0, 0);
+    }, 1200);
+  };
+
+  // 监视Resume加载状态
+  useEffect(() => {
+    if (resumeLoaded && imagesLoadedRef.current) {
+      finishLoading();
+    }
+  }, [resumeLoaded]);
 
   useEffect(() => {
     const loadAssets = async () => {
@@ -36,7 +59,7 @@ export function PreloaderProvider({ children }) {
           if (img.complete) {
             loadedAssets++;
             setLoadingPercent(
-              Math.min(Math.round((loadedAssets / totalAssets) * 100), 99)
+              Math.min(Math.round((loadedAssets / totalAssets) * 95), 95) // 最多到95%
             );
             resolve();
             return;
@@ -45,7 +68,7 @@ export function PreloaderProvider({ children }) {
           img.onload = () => {
             loadedAssets++;
             setLoadingPercent(
-              Math.min(Math.round((loadedAssets / totalAssets) * 100), 99)
+              Math.min(Math.round((loadedAssets / totalAssets) * 95), 95) // 最多到95%
             );
             resolve();
           };
@@ -53,7 +76,7 @@ export function PreloaderProvider({ children }) {
           img.onerror = () => {
             loadedAssets++;
             setLoadingPercent(
-              Math.min(Math.round((loadedAssets / totalAssets) * 100), 99)
+              Math.min(Math.round((loadedAssets / totalAssets) * 95), 95) // 最多到95%
             );
             resolve();
           };
@@ -61,12 +84,14 @@ export function PreloaderProvider({ children }) {
       });
 
       await Promise.all(promises);
-
-      setLoadingPercent(100);
-      setTimeout(() => {
-        setIsLoading(false);
-        window.scrollTo(0, 0);
-      }, 1200);
+      
+      // 标记图片已加载完成
+      imagesLoadedRef.current = true;
+      
+      // 如果resume也加载完毕，完成整个加载流程
+      if (resumeLoaded) {
+        finishLoading();
+      }
     };
 
     loadAssets();
@@ -76,11 +101,17 @@ export function PreloaderProvider({ children }) {
         loadingTween.current.kill();
       }
     };
-  }, []);
+  }, [resumeLoaded]);
 
   return (
     <PreloaderContext.Provider
-      value={{ isLoading, loadingPercent, bypassLoading }}
+      value={{ 
+        isLoading, 
+        loadingPercent, 
+        bypassLoading, 
+        resumeLoaded, 
+        setResumeLoaded 
+      }}
     >
       {children}
     </PreloaderContext.Provider>

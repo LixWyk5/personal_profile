@@ -4,10 +4,6 @@ const links = [
     href: "/#about",
   },
   {
-    title: "Skills",
-    href: "/#skills",
-  },
-  {
     title: "Projects",
     href: "/#projects",
   },

@@ -33,7 +33,10 @@ const Header = ({ loader = false }) => {
       }}
     >
       <div className={cn(styles.bar, "flex items-center justify-between")}>
-        <a href="/" className="flex items-center justify-center">
+        <a 
+          href={process.env.NODE_ENV === 'production' ? `${process.env.PUBLIC_URL}/` : '/'}
+          className="flex items-center justify-center"
+        >
           <span className="text-md font-heading hover:text-primary transition-colors">
             {config.author}
           </span>

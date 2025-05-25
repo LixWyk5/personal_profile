@@ -51,11 +51,19 @@ const iconColors = {};
 
 export const FloatingDock = ({ items = [], className = "" }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [mouseX, setMouseX] = useState(null);
+  const [clickedIndex, setClickedIndex] = useState(null);
   const containerRef = useRef(null);
-  const itemRefs = useRef([]);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // 检测是否为移动设备
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
     items.forEach((item) => {
       const key = item.toLowerCase();
       if (!iconColors[key]) {
@@ -63,59 +71,51 @@ export const FloatingDock = ({ items = [], className = "" }) => {
       }
     });
 
-    const handleMouseMove = (e) => {
-      if (containerRef.current) {
-        setMouseX(e.clientX);
-      }
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
     };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [items]);
 
-  const getItemScale = (index) => {
-    if (!mouseX || !itemRefs.current[index]) return 1;
-
-    const item = itemRefs.current[index];
-    const rect = item.getBoundingClientRect();
-    const itemCenterX = rect.left + rect.width / 2;
-    const distance = Math.abs(mouseX - itemCenterX);
-
-    if (distance < 100) {
-      return 1 + (1 - distance / 100) * 0.5; // Max scale 1.5x
+  const handleItemClick = (index) => {
+    // 在移动设备上，点击切换显示/隐藏工具提示
+    if (isMobile) {
+      if (clickedIndex === index) {
+        setClickedIndex(null);
+      } else {
+        setClickedIndex(index);
+      }
     }
-    return 1;
   };
 
   return (
     <div
       ref={containerRef}
       className={`flex gap-2 md:gap-4 mx-auto h-16 items-end rounded-2xl px-4 pb-3 ${className}`}
-      onMouseLeave={() => setMouseX(null)}
     >
       {items.map((item, index) => {
         const key = item.toLowerCase();
         const iconInfo = ICON_MAP[key] || { icon: BsCodeSlash, label: item };
         const Icon = iconInfo.icon;
-        const scale = getItemScale(index);
         const color = iconColors[key] || generateVibrantColor();
+        
+        // 显示工具提示的条件：PC上悬停或移动端点击
+        const showTooltip = hoveredIndex === index || clickedIndex === index;
 
         return (
           <div
             key={item}
-            ref={(el) => (itemRefs.current[index] = el)}
-            className="relative aspect-square rounded-full bg-gray-200 dark:bg-neutral-800 flex items-center justify-center transition-transform duration-200"
+            className="relative aspect-square rounded-full bg-gray-200 dark:bg-neutral-800 flex items-center justify-center"
             style={{
-              transform: `scale(${scale})`,
               width: "40px",
               height: "40px",
             }}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
+            onClick={() => handleItemClick(index)}
           >
             {/* Tooltip */}
-            {hoveredIndex === index && (
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-md bg-gray-100 border dark:bg-neutral-800 dark:border-neutral-900 dark:text-white border-gray-200 text-neutral-700 text-xs whitespace-nowrap">
+            {showTooltip && (
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-md bg-gray-100 border dark:bg-neutral-800 dark:border-neutral-900 dark:text-white border-gray-200 text-neutral-700 text-xs whitespace-nowrap z-10">
                 {iconInfo.label}
               </div>
             )}
